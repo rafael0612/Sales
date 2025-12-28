@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Sales.AccessData.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<DataContext>(
+    x => x.UseSqlServer("name=SalesConnection", options => options.MigrationsAssembly("Sales.Backend")));
 
 var app = builder.Build();
 
